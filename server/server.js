@@ -10,10 +10,17 @@ const mysql = require('mysql2/promise');
 const app = express();
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://jjck-realty-services-client.onrender.com');
+  res.header('Access-Control-Allow-Origin', 'https://jjck-realty-services-client.onrender.com/');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
+});
+
+app.options('/login', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'https://jjck-realty-services-client.onrender.com/');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.sendStatus(200);
 });
 
 app.use(cors({
