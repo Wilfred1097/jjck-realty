@@ -5,7 +5,13 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "build": "npm run build",
+    "install-server": "cd server && npm install",
+    "start-server": "cd server && node server.js",
+    "install-client": "cd frontend && npm install",
+    "build-client": "cd frontend && npm run build",
+    "start-client": "cd frontend && npm run start"
   },
   "author": "Wilfredo Catalan",
   "license": "ISC",
@@ -18,5 +24,19 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.6.5",
     "nodemon": "^3.0.2"
-  }
+  },
+  "engines": {
+    "node": ">=18.18.0 <19.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wilfred1097/jjck-realty-services-main.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wilfred1097/jjck-realty-services-main/issues"
+  },
+  "homepage": "https://github.com/Wilfred1097/jjck-realty-services-main#readme"
 }
