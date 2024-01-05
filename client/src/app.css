@@ -1,0 +1,18 @@
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000; /* Ensure it's above other elements */
+  }
+  
+  /* Add additional styling for the icon if needed */
+  .back-to-top svg {
+    fill: #ffffff; /* Change the color as needed */
+    transition: fill 0.3s ease-in-out; /* Optional: Add a transition effect */
+  }
+  
+  .back-to-top:hover svg {
+    fill: #ff0000; /* Change the color on hover if desired */
+  }
+  
