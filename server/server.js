@@ -9,6 +9,13 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise');
 const app = express();
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://jjck-realty-services-client.onrender.com');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 app.use(cors({
   origin: ['https://jjck-realty-services-client.onrender.com/'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
