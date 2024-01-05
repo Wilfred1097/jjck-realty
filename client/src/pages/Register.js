@@ -10,7 +10,7 @@ const Register = () => {
 
   const handleRegister = async (values) => {
     try {
-      const response = await axios.post('http://localhost:3001/register', values, { withCredentials: true });
+      const response = await axios.post('https://jjck-realty-services-server.onrender.com/register', values, { withCredentials: true });
 
       if (response.status === 200 && response.data.status === 'Success') {
         navigate('/login');

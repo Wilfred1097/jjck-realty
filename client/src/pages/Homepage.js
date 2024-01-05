@@ -46,7 +46,7 @@ function Homepage() {
   };
 
   const handleLogout = () => {
-    fetch('http://localhost:3001/logout', {
+    fetch('https://jjck-realty-services-server.onrender.com/logout', {
       method: 'POST',
       credentials: 'include',
       headers: {

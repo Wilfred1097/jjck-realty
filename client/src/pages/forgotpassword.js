@@ -8,7 +8,7 @@ const ForgotPassword = () => {
 
   const handleCheckEmailValidity = async (email) => {
     try {
-      const response = await axios.post('http://localhost:3001/check-email-exists', { email });
+      const response = await axios.post('https://jjck-realty-services-server.onrender.com/check-email-exists', { email });
 
       if (response.status === 200 && response.data.exists) {
         setIsEmailValid(true);
@@ -29,7 +29,7 @@ const ForgotPassword = () => {
         return;
       }
 
-      const response = await axios.post('http://localhost:3001/forgot-password', values);
+      const response = await axios.post('https://jjck-realty-services-server.onrender.com/forgot-password', values);
 
       if (response.status === 200 && response.data.status === 'Success') {
         alert('Password reset email sent successfully. Check your email for further instructions.');

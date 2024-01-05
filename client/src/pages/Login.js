@@ -10,7 +10,7 @@ const Login = () => {
 
   const handleLogin = async (values) => {
     try {
-      const response = await axios.post('http://localhost:3001/login', {
+      const response = await axios.post('https://jjck-realty-services-server.onrender.com/login', {
         email: values.email,
         password: values.password,
       }, { withCredentials: true });
