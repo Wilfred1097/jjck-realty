@@ -10,7 +10,7 @@ const mysql = require('mysql2/promise');
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://192.168.8.105:3000'],
+  origin: ['https://jjck-realty-services-client.onrender.com/'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
