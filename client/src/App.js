@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Form, Button, Carousel } from 'react-bootstrap';
+import { Container, Row, Col, Button, Carousel,  Form } from 'react-bootstrap';
 import Iframe from 'react-iframe';
 import NavbarComponent from './pages/NavBar';
+
 
 function App() {
   const [index, setIndex] = useState(0);
   const [lots, setLots] = useState([]);
   
   const getRandomImage = () => {
-    // Replace these placeholder URLs with actual image URLs or use an API to fetch images.
     const imageUrls = [
       'https://t4.ftcdn.net/jpg/01/15/23/79/240_F_115237993_GYjbk7VST3MJkRGR09fUYPDQBXZr6rXD.jpg',
       'https://t4.ftcdn.net/jpg/01/15/23/79/240_F_115237993_GYjbk7VST3MJkRGR09fUYPDQBXZr6rXD.jpg',
     ];
-
     const randomIndex = Math.floor(Math.random() * imageUrls.length);
     return imageUrls[randomIndex];
   };
@@ -27,7 +26,7 @@ function App() {
       try {
         const response = await fetch('http://localhost:3001/lots');
         const data = await response.json();
-        console.log('Lots API Response:', data); // Log the response to the console
+        console.log('Lots API Response:', data);
         setLots(data.lots);
       } catch (error) {
         console.error('Error fetching lots:', error);
@@ -49,14 +48,15 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+
   return (
     <>
-    {/* Start of navbar */}
-      <NavbarComponent/ >
-    {/* End of navbar */}
+      {/* Start of Nav Bar */}
+      <NavbarComponent />
+      {/* End of Nav Bar */}
 
-    {/* Start of Carousel */}
-    <Carousel activeIndex={index} onSelect={handleSelect}>
+      {/* Carousel */}
+      <Carousel id='home' activeIndex={index} onSelect={handleSelect}>
         {[1, 2, 3].map((idx) => (
           <Carousel.Item key={idx}>
             <img
@@ -72,21 +72,20 @@ function App() {
           </Carousel.Item>
         ))}
       </Carousel>
-      {/* End of Carousel */}
-      
-      {/* Start of Listing */}
-        <Container className="mt-5" id='listing' fluid>
-          <Row>
-            <Col className='text-center mb-4'>
-              <h2>Listings</h2>
-              <p>These are the newly listed lots.</p>
-            </Col>
-          </Row>
-          {lots.map((lot, index) => (
-            index % 4 === 0 && (
-              <Row key={index}>
-                {lots.slice(index, index + 4).map((lot, idx) => (
-                  <Col key={idx} xs={12} md={6} lg={3} className="mb-4">
+
+      {/* Listings */}
+      <Container className="mt-5" id='listing' fluid>
+        <Row>
+          <Col className='text-center mb-4'>
+            <h2>Listings</h2>
+            <p>These are the newly listed lots.</p>
+          </Col>
+        </Row>
+        {lots.map((lot, index) => (
+          index % 4 === 0 && (
+            <Row key={index}>
+              {lots.slice(index, index + 4).map((lot, idx) => (
+                <Col key={idx} xs={12} md={6} lg={3} className="mb-4">
                   <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                     <h3>{lot.name}</h3>
                     <img src={lot.image} alt={lot.name} style={{ maxWidth: '100%', objectFit: 'cover', width: '100%', height: '100%' }} />
@@ -110,21 +109,20 @@ function App() {
                     </div>
                   </div>
                 </Col>                
-                ))}
-              </Row>
-            )
-          ))}
-          <Row>
-            <Col className='text-center'>
-              <p style={{ textDecoration: 'none' }}><h4>More Listings</h4></p>
-            </Col>
-          </Row>
-        </Container>
-        {/* End of Listing */}
+              ))}
+            </Row>
+          )
+        ))}
+        <Row>
+          <Col className='text-center'>
+            <p style={{ textDecoration: 'none' }}><h4>More Listings</h4></p>
+          </Col>
+        </Row>
+      </Container>
+       {/* End of Listing */}
 
-
-      {/* Start of Contact us */}
-      {/* <section id="contact" className="position-relative py-5">
+        {/* Start of Contact us */}
+      <section id="contact" className="position-relative py-5">
       <div className="d-md-none">
         <Iframe
           url="https://cdn.bootstrapstudio.io/placeholders/map.html"
@@ -173,7 +171,7 @@ function App() {
     </section> */}
     {/* End of Contact us */}
 
-    <footer className="text-center py-4">
+    <footer className="text-center py-4" id="contact">
       <Container>
         <Row className="row-cols-1 row-cols-lg-3 row-cols-lg-4">
           <Col>

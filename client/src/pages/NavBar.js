@@ -1,8 +1,12 @@
-import React from 'react';
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Nav, Offcanvas } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import * as Icon from 'react-bootstrap-icons';
 
 function NavbarComponent() {
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const handleOffcanvasShow = () => setShowOffcanvas(true);
+  const handleOffcanvasClose = () => setShowOffcanvas(false);
   // Check if the token is present in the local storage
   const token = localStorage.getItem('token');
 
@@ -11,31 +15,47 @@ function NavbarComponent() {
     localStorage.removeItem('token');
   };
 
+  const handleCloseOffcanvas = () => {
+    handleOffcanvasClose();
+  };
+
   return (
-    <Navbar bg="light" expand="lg" fixed="top">
-      <Container fluid>
-        <Navbar.Brand href="#" className='m-1'>JJCK REALTY SERVICES</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarSupportedContent" />
-        <Navbar.Collapse id="navbarSupportedContent">
-          <Nav className="mx-auto m-1">
-            <Nav.Link href="#listing">Listings</Nav.Link>
-            <Nav.Link href="#contact">Contact Us</Nav.Link>
-          </Nav>
-          <Nav>
-            {/* Check if token is present */}
+    <>
+      {/* Offcanvas */}
+      <Offcanvas show={showOffcanvas} onHide={handleOffcanvasClose} placement="end">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title><Nav.Link href='#home' onClick={handleCloseOffcanvas}>JJCK Realty Services</Nav.Link></Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <Nav className="flex-column">
+            <Nav.Link href="#listing" onClick={handleCloseOffcanvas}>Listings</Nav.Link>
+            <Nav.Link href="#contact" onClick={handleCloseOffcanvas}>Contact Us</Nav.Link>
+            <Nav.Link href="#all-listings" onClick={handleCloseOffcanvas}>View all listings</Nav.Link>
             {token ? (
-              <Button className='m-1' variant="primary" as={Link} to="/" onClick={handleLogout}>
-                Logout
-              </Button>
+              <>
+                <Nav.Link href="#profile" onClick={handleCloseOffcanvas}>My Account</Nav.Link>
+                <Button className='m-1' variant="primary" as={Link} to="/" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </>
             ) : (
               <Button className='m-1' variant="primary" as={Link} to="/login">
                 Login
               </Button>
             )}
           </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        </Offcanvas.Body>
+      </Offcanvas>
+
+      {/* Button to toggle Offcanvas */}
+      {!showOffcanvas && (
+        <div style={{ position: 'fixed', top: '10px', right: '10px', zIndex: '999' }}>
+          <Button className='m-1' variant="primary" onClick={handleOffcanvasShow}>
+            <Icon.MenuApp />
+          </Button>
+        </div>
+      )}
+    </>
   );
 }
 

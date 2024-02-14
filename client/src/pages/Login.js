@@ -21,7 +21,7 @@ const Login = () => {
         // Store the token in localStorage or a secure storage mechanism
         localStorage.setItem('token', token);
   
-        navigate('/homepage');
+        navigate('/');
         console.log('Login Successful');
       } else if (response && response.data && response.data.status === 'InvalidCredentials') {
         alert(response.data.message);
