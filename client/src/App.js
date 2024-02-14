@@ -77,11 +77,11 @@ function App() {
       <Container className="mt-5" id='listing' fluid>
         <Row>
           <Col className='text-center mb-4'>
-            <h2>Listings</h2>
-            <p>These are the newly listed lots.</p>
+            <h3>These are the newly listed lots.</h3>
+            {/* <p>These are the newly listed lots.</p> */}
           </Col>
         </Row>
-        {lots.map((lot, index) => (
+        {lots.slice(0, 12).map((lot, index) => (
           index % 4 === 0 && (
             <Row key={index}>
               {lots.slice(index, index + 4).map((lot, idx) => (
@@ -98,14 +98,15 @@ function App() {
                       color: 'white',
                       padding: '10px'
                     }}>
-                      <p>
-                        {lot.description}<br />
-                        Block number: {lot.block_number}<br />
-                        Lot number: {lot.lot_number}<br />
-                        Dimension: {lot.dimension} sqm.<br />
-                        Price: <span>&#8369;</span>{lot.price}<br />
-                        Downpayment: {lot.downpayment}
-                      </p>
+                      <Col style={{ fontSize: '13px'}}>
+                            {lot.description}<br />
+                            Block | Lot: {lot.block_number} | {lot.lot_number}<br />
+                            {/* Block number: {lot.block_number}<br />
+                            Lot number: {lot.lot_number}<br /> */}
+                            Dimension: {lot.dimension} sqm.<br />
+                            Price: <span>&#8369;</span>{lot.price}<br />
+                            {/* Downpayment: {lot.downpayment} */}
+                        </Col>
                     </div>
                   </div>
                 </Col>                
@@ -113,11 +114,6 @@ function App() {
             </Row>
           )
         ))}
-        <Row>
-          <Col className='text-center'>
-            <p style={{ textDecoration: 'none' }}><h4>More Listings</h4></p>
-          </Col>
-        </Row>
       </Container>
        {/* End of Listing */}
 

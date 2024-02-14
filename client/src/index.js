@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { createRoot } from 'react-dom/client';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ViewAllListings from './pages/Listings';
+import MyAccount from './pages/account';
 
 const root = createRoot(document.getElementById('root'));
 
@@ -16,6 +18,8 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/listings" element={<ViewAllListings />} />
+        <Route path="/myaccount" element={<MyAccount />} />
       </Routes>
     </Router>
   </React.StrictMode>
