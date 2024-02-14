@@ -7,7 +7,7 @@ function ViewAllListings() {
     const [lots, setLots] = useState([]);
     const [showOffcanvas, setShowOffcanvas] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const lotsPerPage = 12;
+    const lotsPerPage = 18;
     const totalPages = Math.ceil(lots.length / lotsPerPage);
     const indexOfLastLot = currentPage * lotsPerPage;
     const indexOfFirstLot = indexOfLastLot - lotsPerPage;
@@ -52,14 +52,13 @@ function ViewAllListings() {
 
     return (
         <>
-        {/*start of Offcanvas */}
         <Offcanvas show={showOffcanvas} onHide={handleOffcanvasClose} placement="end">
             <Offcanvas.Header closeButton>
             <Offcanvas.Title><Nav.Link href='/#home' onClick={handleCloseOffcanvas}>JJCK Realty Services</Nav.Link></Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
             <Nav className="flex-column">
-                <Nav.Link href="/#listings" onClick={handleCloseOffcanvas}>Listings</Nav.Link>
+                {/* <Nav.Link href="/#listings" onClick={handleCloseOffcanvas}>Listings</Nav.Link> */}
                 <Nav.Link href="/#contact" onClick={handleCloseOffcanvas}>Contact Us</Nav.Link>
                 {/* <Nav.Link href="#all-listings" onClick={handleCloseOffcanvas} as={Link} to="/listings">View all listings</Nav.Link> */}
                 {token ? (
@@ -88,42 +87,43 @@ function ViewAllListings() {
         )}
         {/* End of Offcanvas */}
 
-        {/* Listings */}
         <Container className="mt-5" id='listing' fluid>
-            {currentLots.map((lot, index) => (
-            index % 4 === 0 && (
-                <Row key={index}>
-                {currentLots.slice(index, index + 4).map((lot, idx) => (
-                    <Col key={idx} xs={12} md={6} lg={3} className="mb-4">
-                    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                        <h3>{lot.name}</h3>
-                        <img src={lot.image} alt={lot.name} style={{ maxWidth: '100%', objectFit: 'cover', width: '100%', height: '100%' }} />
-                        <div style={{ 
-                        position: 'absolute', 
-                        bottom: 0, 
-                        left: 0, 
-                        width: '100%', 
-                        background: 'linear-gradient(transparent, rgba(0,0,0,1))',
-                        color: 'white',
-                        padding: '10px'
-                        }}>
-                        <Col style={{ fontSize: '13px'}}>
-                            {lot.description}<br />
-                            Block | Lot: {lot.block_number} | {lot.lot_number}<br />
-                            {/* Block number: {lot.block_number}<br />
-                            Lot number: {lot.lot_number}<br /> */}
-                            Dimension: {lot.dimension} sqm.<br />
-                            Price: <span>&#8369;</span>{lot.price}<br />
-                            {/* Downpayment: {lot.downpayment} */}
-                        </Col>
+    {currentLots.map((lot, index) => (
+        index % 6 === 0 && (
+            <Row key={index}>
+                {currentLots.slice(index, index + 6).map((lot, idx) => (
+                    <Col key={idx} xs={6} md={4} lg={2} xl={2} xxl={2} className="mb-4">
+                        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                            <h3>{lot.name}</h3>
+                            <img src={lot.image} alt={lot.name} style={{ maxWidth: '100%', objectFit: 'cover', width: '100%', height: '100%' }} />
+                            <div style={{ 
+                                position: 'absolute', 
+                                bottom: 0, 
+                                left: 0, 
+                                width: '100%', 
+                                background: 'linear-gradient(transparent, rgba(0,0,0,1))',
+                                color: 'white',
+                                padding: '10px'
+                            }}>
+                                <Col style={{ fontSize: '13px'}}>
+                                    {lot.description}<br />
+                                    Block | Lot #: {lot.block_number} | {lot.lot_number}<br />
+                                    Dimension: {lot.dimension} sqm.<br />
+                                    Price: <span>&#8369;</span>{lot.price}<br />
+                                </Col>
+                            </div>
                         </div>
-                    </div>
                     </Col>                
                 ))}
-                </Row>
-            )
-            ))}
-        </Container>
+                {currentLots.length - index < 6 && Array.from({ length: 6 - (currentLots.length - index) }).map((_, idx) => (
+                    <Col key={idx} lg={2} xl={2} xxl={2} className="mb-4" />
+                ))}
+            </Row>
+        )
+    ))}
+</Container>
+
+
         {/* Pagination */}
         <div className="text-center mt-4">
             {Array.from({ length: totalPages }, (_, i) => (
