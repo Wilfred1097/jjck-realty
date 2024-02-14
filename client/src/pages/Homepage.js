@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Navbar, Nav, Form, FormControl, Button, Carousel } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Carousel } from 'react-bootstrap';
 import Iframe from 'react-iframe';
-import { useNavigate } from 'react-router-dom';
+import NavbarComponent from './NavBar';
 
-function Homepage() {
+function App() {
   const [index, setIndex] = useState(0);
-  const navigate = useNavigate();
+  const [lots, setLots] = useState([]);
   
   const getRandomImage = () => {
     // Replace these placeholder URLs with actual image URLs or use an API to fetch images.
@@ -23,6 +23,21 @@ function Homepage() {
   };
 
   useEffect(() => {
+    const fetchLots = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/lots');
+        const data = await response.json();
+        console.log('Lots API Response:', data); // Log the response to the console
+        setLots(data.lots);
+      } catch (error) {
+        console.error('Error fetching lots:', error);
+      }
+    };
+
+    fetchLots();
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % 3);
     }, 5000);
@@ -30,69 +45,15 @@ function Homepage() {
     return () => clearInterval(interval);
   }, []);
 
-  const listings = [
-    { title: 'Listing 1', description: 'Description for Listing 1' },
-    { title: 'Listing 2', description: 'Description for Listing 2' },
-    { title: 'Listing 3', description: 'Description for Listing 3' },
-    { title: 'Listing 4', description: 'Description for Listing 4' },
-    { title: 'Listing 5', description: 'Description for Listing 5' },
-    { title: 'Listing 6', description: 'Description for Listing 6' },
-    { title: 'Listing 7', description: 'Description for Listing 7' },
-    { title: 'Listing 8', description: 'Description for Listing 8' },
-  ];
-
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleLogout = () => {
-    fetch('https://jjck-realty-services-server.onrender.com/logout', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.Status === 'Success') {
-          console.log('Logout Successfully');
-          
-          // Clear the token from localStorage
-          localStorage.removeItem('token');
-          
-          navigate('/');
-        } else {
-          console.error('Logout failed');
-        }
-      })
-      .catch(error => {
-        console.error('Error during logout:', error);
-      });
-  };
-  
-
-
   return (
     <>
     {/* Start of navbar */}
-      <Navbar bg="light" expand="lg" fixed="top">
-      <Container fluid>
-        <Navbar.Brand href="#" className='m-1'>JJCK REALTY SERVICES</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarSupportedContent" />
-        <Navbar.Collapse id="navbarSupportedContent">
-          <Nav className="mx-auto m-1">
-            <Nav.Link href="#listing">Listings</Nav.Link>
-            <Nav.Link href="#contact">Contact Us</Nav.Link>
-          </Nav>
-          <Form className="d-flex justify-content-end">
-            <FormControl className='m-1' type="search" placeholder="Search" aria-label="Search" />
-            <Button className='m-1' variant="success" type="submit">Search</Button>
-            <Button className='m-1' variant="primary" onClick={handleLogout}>Logout</Button>
-          </Form>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <NavbarComponent />
+
     {/* End of navbar */}
 
     {/* Start of Carousel */}
@@ -115,40 +76,53 @@ function Homepage() {
       {/* End of Carousel */}
       
       {/* Start of Listing */}
-      <Container className="mt-5" id='listing'fluid>
-        <Row>
-          <Col className='text-center mb-4'>
-            <h2>Listings</h2>
-            <p>This are the new listed lot.</p>
-          </Col>
-        </Row>
-        <Row>
-        {listings.map((listing, index) => (
-          <Col key={index} xxl={3} xl={4} md={6} sm={12} xs={12} className="mb-4">
-            <div className="listing-item">
-              <div>
-                <img
-                  src='https://t4.ftcdn.net/jpg/00/86/79/15/240_F_86791518_rQZ4pYogBmAIzzOUj4un1oSAThBcMjL4.jpg'
-                  alt={`Listing ${index + 1}`}
-                  className="img-fluid"
-                  style={{ height: '250px', width: '100%' }}
-                />
-              </div>
-              <div className="listing-details">
-                <h3>{listing.title}</h3>
-                <p>{listing.description}</p>
-              </div>
-            </div>
-          </Col>
-        ))}
-        </Row>
-        <Row>
-          <Col className='text-center'>
-            <p style={{ textDecoration: 'none' }}><h4>More Listings</h4></p>
-          </Col>
-        </Row>
-      </Container>
-      {/* End of Listing */}
+        <Container className="mt-5" id='listing' fluid>
+          <Row>
+            <Col className='text-center mb-4'>
+              <h2>Listings</h2>
+              <p>These are the newly listed lots.</p>
+            </Col>
+          </Row>
+          {lots.map((lot, index) => (
+            index % 4 === 0 && (
+              <Row key={index}>
+                {lots.slice(index, index + 4).map((lot, idx) => (
+                  <Col key={idx} xs={12} md={6} lg={3} className="mb-4">
+                    <div style={{ position: 'relative' }}>
+                      <h3>{lot.name}</h3>
+                      <img src={lot.image} alt={lot.name} style={{ maxWidth: '100%' }} />
+                      <div style={{ 
+                        position: 'absolute', 
+                        bottom: 0, 
+                        left: 0, 
+                        width: '100%', 
+                        background: 'linear-gradient(transparent, rgba(0,0,0,1))',
+                        color: 'white',
+                        padding: '10px'
+                      }}>
+                        <p>
+                          {lot.description}<br />
+                          {/* Block number: {lot.block_number}<br />
+                          Lot number: {lot.lot_number}<br /> */}
+                          Size: {lot.dimension} sqm.<br />
+                          Price: <span>&#8369;</span>{lot.price}<br />
+                          Downpayment: {lot.downpayment}
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            )
+          ))}
+          <Row>
+            <Col className='text-center'>
+              <p style={{ textDecoration: 'none' }}><h4>More Listings</h4></p>
+            </Col>
+          </Row>
+        </Container>
+        {/* End of Listing */}
+
 
       {/* Start of Contact us */}
       <section id="contact" className="position-relative py-5">
@@ -281,4 +255,4 @@ function Homepage() {
   );
 }
 
-export default Homepage
+export default App;

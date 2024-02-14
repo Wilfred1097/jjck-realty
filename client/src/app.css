@@ -1,18 +1,44 @@
 .back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    cursor: pointer;
-    z-index: 1000; /* Ensure it's above other elements */
-  }
-  
-  /* Add additional styling for the icon if needed */
-  .back-to-top svg {
-    fill: #ffffff; /* Change the color as needed */
-    transition: fill 0.3s ease-in-out; /* Optional: Add a transition effect */
-  }
-  
-  .back-to-top:hover svg {
-    fill: #ff0000; /* Change the color on hover if desired */
-  }
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+/* Add additional styling for the icon if needed */
+.back-to-top svg {
+  fill: #ffffff; /* Change the color as needed */
+  transition: fill 0.3s ease-in-out; /* Optional: Add a transition effect */
+}
+
+.back-to-top:hover svg {
+  fill: #ff0000; /* Change the color on hover if desired */
+}
+
+/* Add this CSS to your stylesheet or inline style */
+.lot-info-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.lot-image-container:hover .lot-info-overlay {
+  opacity: 1;
+}
+
+.lot-info-overlay p {
+  margin: 5px;
+}
+
   

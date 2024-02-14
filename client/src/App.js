@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Navbar, Nav, Form, FormControl, Button, Carousel } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Container, Row, Col, Form, Button, Carousel } from 'react-bootstrap';
 import Iframe from 'react-iframe';
+import NavbarComponent from './pages/NavBar';
 
 function App() {
   const [index, setIndex] = useState(0);
+  const [lots, setLots] = useState([]);
   
   const getRandomImage = () => {
     // Replace these placeholder URLs with actual image URLs or use an API to fetch images.
@@ -22,23 +23,27 @@ function App() {
   };
 
   useEffect(() => {
+    const fetchLots = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/lots');
+        const data = await response.json();
+        console.log('Lots API Response:', data); // Log the response to the console
+        setLots(data.lots);
+      } catch (error) {
+        console.error('Error fetching lots:', error);
+      }
+    };
+
+    fetchLots();
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % 3);
     }, 5000);
 
     return () => clearInterval(interval);
   }, []);
-
-  const listings = [
-    { title: 'Listing 1', description: 'Description for Listing 1' },
-    { title: 'Listing 2', description: 'Description for Listing 2' },
-    { title: 'Listing 3', description: 'Description for Listing 3' },
-    { title: 'Listing 4', description: 'Description for Listing 4' },
-    { title: 'Listing 5', description: 'Description for Listing 5' },
-    { title: 'Listing 6', description: 'Description for Listing 6' },
-    { title: 'Listing 7', description: 'Description for Listing 7' },
-    { title: 'Listing 8', description: 'Description for Listing 8' },
-  ];
 
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -47,23 +52,7 @@ function App() {
   return (
     <>
     {/* Start of navbar */}
-      <Navbar bg="light" expand="lg" fixed="top">
-      <Container fluid>
-        <Navbar.Brand href="#" className='m-1'>JJCK REALTY SERVICES</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarSupportedContent" />
-        <Navbar.Collapse id="navbarSupportedContent">
-          <Nav className="mx-auto m-1">
-            <Nav.Link href="#listing">Listings</Nav.Link>
-            <Nav.Link href="#contact">Contact Us</Nav.Link>
-          </Nav>
-          <Form className="d-flex justify-content-end">
-            <FormControl className='m-1' type="search" placeholder="Search" aria-label="Search" />
-            <Button className='m-1' variant="success" type="submit">Search</Button>
-            <Button className='m-1' variant="primary" as={Link} to="/login">Login</Button>
-          </Form>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+      <NavbarComponent/ >
     {/* End of navbar */}
 
     {/* Start of Carousel */}
@@ -86,43 +75,56 @@ function App() {
       {/* End of Carousel */}
       
       {/* Start of Listing */}
-      <Container className="mt-5" id='listing'fluid>
-        <Row>
-          <Col className='text-center mb-4'>
-            <h2>Listings</h2>
-            <p>This are the new listed lot.</p>
-          </Col>
-        </Row>
-        <Row>
-        {listings.map((listing, index) => (
-          <Col key={index} xxl={3} xl={4} md={6} sm={12} xs={12} className="mb-4">
-            <div className="listing-item">
-              <div>
-                <img
-                  src='https://t4.ftcdn.net/jpg/00/86/79/15/240_F_86791518_rQZ4pYogBmAIzzOUj4un1oSAThBcMjL4.jpg'
-                  alt={`Listing ${index + 1}`}
-                  className="img-fluid"
-                  style={{ height: '250px', width: '100%' }}
-                />
-              </div>
-              <div className="listing-details">
-                <h3>{listing.title}</h3>
-                <p>{listing.description}</p>
-              </div>
-            </div>
-          </Col>
-        ))}
-        </Row>
-        <Row>
-          <Col className='text-center'>
-            <p style={{ textDecoration: 'none' }}><h4>More Listings</h4></p>
-          </Col>
-        </Row>
-      </Container>
-      {/* End of Listing */}
+        <Container className="mt-5" id='listing' fluid>
+          <Row>
+            <Col className='text-center mb-4'>
+              <h2>Listings</h2>
+              <p>These are the newly listed lots.</p>
+            </Col>
+          </Row>
+          {lots.map((lot, index) => (
+            index % 4 === 0 && (
+              <Row key={index}>
+                {lots.slice(index, index + 4).map((lot, idx) => (
+                  <Col key={idx} xs={12} md={6} lg={3} className="mb-4">
+                  <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                    <h3>{lot.name}</h3>
+                    <img src={lot.image} alt={lot.name} style={{ maxWidth: '100%', objectFit: 'cover', width: '100%', height: '100%' }} />
+                    <div style={{ 
+                      position: 'absolute', 
+                      bottom: 0, 
+                      left: 0, 
+                      width: '100%', 
+                      background: 'linear-gradient(transparent, rgba(0,0,0,1))',
+                      color: 'white',
+                      padding: '10px'
+                    }}>
+                      <p>
+                        {lot.description}<br />
+                        Block number: {lot.block_number}<br />
+                        Lot number: {lot.lot_number}<br />
+                        Dimension: {lot.dimension} sqm.<br />
+                        Price: <span>&#8369;</span>{lot.price}<br />
+                        Downpayment: {lot.downpayment}
+                      </p>
+                    </div>
+                  </div>
+                </Col>                
+                ))}
+              </Row>
+            )
+          ))}
+          <Row>
+            <Col className='text-center'>
+              <p style={{ textDecoration: 'none' }}><h4>More Listings</h4></p>
+            </Col>
+          </Row>
+        </Container>
+        {/* End of Listing */}
+
 
       {/* Start of Contact us */}
-      <section id="contact" className="position-relative py-5">
+      {/* <section id="contact" className="position-relative py-5">
       <div className="d-md-none">
         <Iframe
           url="https://cdn.bootstrapstudio.io/placeholders/map.html"
@@ -168,7 +170,7 @@ function App() {
           </Row>
         </Container>
       </div>
-    </section>
+    </section> */}
     {/* End of Contact us */}
 
     <footer className="text-center py-4">
@@ -196,7 +198,7 @@ function App() {
               </div>
               <div className="px-2">
                 <h6 className="text-start d-xxl-flex justify-content-xxl-start mb-0">Email</h6>
-                <p className="mb-0">info@example.com</p>
+                <p className="mb-0">espinosacatherine042507@gmail.com</p>
               </div>
             </div>
           </Col>

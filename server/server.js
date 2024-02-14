@@ -8,52 +8,40 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise');
 const app = express();
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://jjck-realty-services-client.onrender.com/');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
-
-app.options('/login', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'https://jjck-realty-services-client.onrender.com/');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.sendStatus(200);
-});
+// https://jjck-realty-services-client.onrender.com/
 
 app.use(cors({
-  origin: ['https://jjck-realty-services-client.onrender.com/'],
+  origin: ['http://localhost:3000'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
+
 
 const PORT = process.env.PORT;
 
 app.use(bodyParser.json());
 
 // Create a MySQL connection pool
-const db = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.PORT,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
-
 // const db = mysql.createPool({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '',
-//   database: 'jjck',
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_NAME,
+//   port: process.env.PORT,
 //   waitForConnections: true,
 //   connectionLimit: 10,
 //   queueLimit: 0,
 // });
+
+const db = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'jjck',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
 
 app.get('/', (req, res) => {
   res.send('Hello from the server!');
@@ -202,4 +190,16 @@ app.post('/logout', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+app.get('/lots', async (req, res) => {
+  try {
+    const getAllLotsQuery = 'SELECT * FROM lot_table';
+    const [lotsResults] = await db.query(getAllLotsQuery);
+
+    return res.status(200).json({ status: 'Success', lots: lotsResults });
+  } catch (error) {
+    console.error('Error retrieving lots:', error);
+    return res.status(500).json({ status: 'ServerError', message: 'An unexpected error occurred. Please try again.' });
+  }
 });

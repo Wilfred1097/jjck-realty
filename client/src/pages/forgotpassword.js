@@ -8,7 +8,7 @@ const ForgotPassword = () => {
 
   const handleCheckEmailValidity = async (email) => {
     try {
-      const response = await axios.post('https://jjck-realty-services-server.onrender.com/check-email-exists', { email });
+      const response = await axios.post('http://localhost:3001/check-email-exists', { email });
 
       if (response.status === 200 && response.data.exists) {
         setIsEmailValid(true);
