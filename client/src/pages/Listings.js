@@ -58,12 +58,10 @@ function ViewAllListings() {
             </Offcanvas.Header>
             <Offcanvas.Body>
             <Nav className="flex-column">
-                {/* <Nav.Link href="/#listings" onClick={handleCloseOffcanvas}>Listings</Nav.Link> */}
                 <Nav.Link href="/#contact" onClick={handleCloseOffcanvas}>Contact Us</Nav.Link>
-                {/* <Nav.Link href="#all-listings" onClick={handleCloseOffcanvas} as={Link} to="/listings">View all listings</Nav.Link> */}
                 {token ? (
                 <>
-                    <Nav.Link href="#profile" onClick={handleCloseOffcanvas}>My Account</Nav.Link>
+                    <Nav.Link as={Link} to="/myaccount" onClick={handleCloseOffcanvas}>My Account</Nav.Link>
                     <Button className='m-1' variant="primary" as={Link} to="/" onClick={handleLogout}>
                     Logout
                     </Button>
