@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { Container, Card, Navbar } from 'react-bootstrap';
+import { Container, Card, Navbar, Alert } from 'react-bootstrap';
 import { LoginValidationSchema } from '../validation/LoginRegistration';
 
 const Login = () => {
   const navigate = useNavigate();
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleLogin = async (values) => {
     try {
@@ -24,7 +25,7 @@ const Login = () => {
         navigate('/');
         console.log('Login Successful');
       } else if (response && response.data && response.data.status === 'InvalidCredentials') {
-        alert(response.data.message);
+        setShowAlert(true);
       }
     } catch (error) {
       console.error('Unexpected error:', error);
@@ -79,6 +80,12 @@ const Login = () => {
                 </Form>
               )}
             </Formik>
+
+            {showAlert && (
+                <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible style={{ position: 'fixed', top: '50px', left: '50%', transform: 'translateX(-50%)', zIndex: '1000', width: '300px' }}>
+                    Invalid username or password
+                </Alert>
+            )}
 
             <p className="text-center pt-4">Not Registered?<a href="/register" style={{ textDecoration: 'none'}}> Register here.</a></p>
           </Card.Body>
