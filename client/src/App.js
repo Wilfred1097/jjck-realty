@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Carousel, Card } from 'react-bootstrap';
-import NavbarComponent from './pages/NavBar';
+// import NavbarComponent from './pages/NavBar';
 import { Link } from 'react-router-dom';
+import TopBarNavigation from './pages/topbar';
 
 function App() {
   const [index, setIndex] = useState(0);
   const [lots, setLots] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [lotsPerPage] = useState(15);
+  const [lotsPerPage] = useState(12);
 
   const getRandomImage = () => {
     const imageUrls = [
@@ -59,7 +60,7 @@ function App() {
   return (
     <>
       {/* Start of Nav Bar */}
-      <NavbarComponent />
+      <TopBarNavigation />
       {/* End of Nav Bar */}
 
       {/* Carousel */}
@@ -70,7 +71,7 @@ function App() {
               className="d-block w-100 img-fluid"
               src={getRandomImage()}
               alt={`Slide ${idx}`}
-              style={{ maxHeight: '750px', objectFit: 'cover' }}
+              style={{ maxHeight: '605px', objectFit: 'cover' }}
             />
             <Carousel.Caption>
               <h3>Image {idx}</h3>
@@ -89,7 +90,7 @@ function App() {
         </Row>
         <Row key={index}>
           {currentLots.map((lot, idx) => (
-            <Col key={idx} xs={12} md={6} lg={4} className="mb-4">
+            <Col key={idx} xs={12} md={6} lg={3} className="mb-4">
               <Link to={`/lot-details/${lot.lot_Id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Card className="h-80 position-relative">
                   <Card.Img variant="top" src={lot.image} className="rounded-top" style={{ objectFit: 'cover' }} />

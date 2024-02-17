@@ -46,7 +46,7 @@ const Register = () => {
       <Container className="d-flex align-items-center justify-content-center mt-5">
         <Card style={{ width: '400px' }}>
           <Card.Body>
-            <h2 className="text-center">Register</h2>
+            <h2 className="text-center">Sign up</h2>
             <Formik
               initialValues={{
                 completename: '',
@@ -132,7 +132,7 @@ const Register = () => {
                   </BootstrapForm.Group>
 
                   <Button variant="primary" type="submit" className="w-100 mt-4">
-                    Register
+                    Sign up
                   </Button>
                 </Form>
               )}
