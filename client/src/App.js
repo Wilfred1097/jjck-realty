@@ -112,7 +112,7 @@ function App() {
         <Row>
           <Col className="text-center mt-3">
             {Array.from({ length: Math.ceil(lots.length / lotsPerPage) }, (_, i) => (
-              <button key={i} onClick={() => paginate(i + 1)} className={`btn ${currentPage === i + 1 ? 'btn-primary' : 'btn-outline-primary'} mx-1`}>
+              <button key={i} onClick={() => paginate(i + 1)} className={`btn ${currentPage === i + 1 ? 'btn-success' : 'btn-outline-success'} mx-1`}>
                 {i + 1}
               </button>
             ))}
