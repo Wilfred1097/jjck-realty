@@ -221,3 +221,18 @@ app.get('/lots/:lot_Id', async (req, res) => {
     return res.status(500).json({ status: 'ServerError', message: 'An unexpected error occurred. Please try again.' });
   }
 });
+
+app.post('/submit-tour-request', async (req, res) => {
+  try {
+    const { lot_Id, block_number, email, request_date } = req.body;
+
+    // Insert the tour request into the tour_request_table with status as 'pending'
+    const insertTourRequestQuery = 'INSERT INTO tour_request_table (lot_Id, block_number, email, request_date, status) VALUES (?, ?, ?, ?, ?)';
+    await db.query(insertTourRequestQuery, [lot_Id, block_number, email, request_date, 'pending']);
+
+    return res.status(200).json({ status: 'Success', message: 'Tour request submitted successfully.' });
+  } catch (error) {
+    console.error('Error submitting tour request:', error);
+    return res.status(500).json({ status: 'ServerError', message: 'An unexpected error occurred. Please try again.' });
+  }
+});

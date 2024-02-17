@@ -44,28 +44,53 @@ function LotDetailsPage() {
             setDateError('Please select a date.');
             return;
         }
-
+    
         // Clear any previous date error
         setDateError('');
-
+    
         const selectedDateTime = new Date(selectedDate).getTime();
         const threeDaysLater = new Date();
         threeDaysLater.setDate(threeDaysLater.getDate() + 3);
-
+    
         if (selectedDateTime < threeDaysLater.getTime()) {
             setDateError('Selected date must be at least 3 days from today.');
             return;
         }
-
+    
         // Proceed with handling tour request...
         // Extract user ID from token
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        // console.log('Decoded Token:', decodedToken); // Log decoded token
         const email = decodedToken.email;
-        console.log('Block Number:', lotDetails.block_number);
-        console.log('Lot Number:', lotDetails.lot_number);
-        console.log('Email:', email);
+    
+        // Send tour request data to the server
+        fetch('http://localhost:3001/submit-tour-request', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                lot_Id: lotDetails.lot_Id,
+                block_number: lotDetails.block_number,
+                email,
+                request_date: selectedDate
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Tour request submitted successfully:', data);
+            // Handle success response if needed
+        })
+        .catch(error => {
+            console.error('Error submitting tour request:', error);
+            // Handle error if needed
+        });
     };
+    
 
     const handleRequestTour = () => {
         if (token) {
