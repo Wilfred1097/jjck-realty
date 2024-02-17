@@ -26,14 +26,14 @@ function TopBar() {
                         {token ? (
                             <Nav.Link className="mr-3" as={Link} to="/myaccount">Account</Nav.Link>
                         ) : (
-                            <Nav.Link className="mr-3" as={Link} to="/login">Login</Nav.Link>
+                            <Nav.Link className="mr-3" as={Link} to="/login"></Nav.Link>
                         )}
                     </Nav>
                     <Nav className="ml-auto">
                         {token ? (
-                            <Button variant="primary" className="rounded-pill" onClick={handleLogout}><b>Logout</b></Button>
+                            <Button variant="success" className="rounded-pill" onClick={handleLogout}><b>Logout</b></Button>
                         ) : (
-                            <Button variant="primary" className="rounded-pill" as={Link} to="/register"><b>Sign up</b></Button>
+                            <Button variant="success" className="rounded-pill" as={Link} to="/login"><b>Login</b></Button>
                         )}
                     </Nav>
                 </Navbar.Collapse>
