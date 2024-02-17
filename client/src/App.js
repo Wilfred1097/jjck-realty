@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Button, Carousel, Form, Card } from 'react-bootstrap';
-import Iframe from 'react-iframe';
+import { Container, Row, Col, Carousel, Card } from 'react-bootstrap';
 import NavbarComponent from './pages/NavBar';
 import { Link } from 'react-router-dom';
-
 
 function App() {
   const [index, setIndex] = useState(0);
@@ -14,7 +12,8 @@ function App() {
   const getRandomImage = () => {
     const imageUrls = [
       'https://t4.ftcdn.net/jpg/01/15/23/79/240_F_115237993_GYjbk7VST3MJkRGR09fUYPDQBXZr6rXD.jpg',
-      'https://t4.ftcdn.net/jpg/01/15/23/79/240_F_115237993_GYjbk7VST3MJkRGR09fUYPDQBXZr6rXD.jpg',
+      'https://media.gettyimages.com/id/528449740/photo/perfect-field-of-spring-grass-tuscany-italy.jpg?s=612x612&w=0&k=20&c=Cw0-n1EDFcjBMsEAAPMOAiFwDnXzlJ2sxCVuYPkHc-s=',
+      'https://imgs.search.brave.com/QXTBLNlDdKkpp70uvMkwWrKpJBRK1mOb6JyI5u-uQjw/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9idXJz/dC5zaG9waWZ5Y2Ru/LmNvbS9waG90b3Mv/c2NlbmljLW1vdW50/YWluLWxhbmRzY2Fw/ZS5qcGc_d2lkdGg9/MTAwMCZmb3JtYXQ9/cGpwZyZleGlmPTAm/aXB0Yz0w',
     ];
     const randomIndex = Math.floor(Math.random() * imageUrls.length);
     return imageUrls[randomIndex];
@@ -29,7 +28,7 @@ function App() {
       try {
         const response = await fetch('http://localhost:3001/lots');
         const data = await response.json();
-        console.log('Lots API Response:', data);
+        // console.log('Lots API Response:', data);
         setLots(data.lots);
       } catch (error) {
         console.error('Error fetching lots:', error);
@@ -42,7 +41,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % 3);
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
@@ -71,7 +70,7 @@ function App() {
               className="d-block w-100 img-fluid"
               src={getRandomImage()}
               alt={`Slide ${idx}`}
-              style={{ maxHeight: '950px', objectFit: 'cover' }}
+              style={{ maxHeight: '750px', objectFit: 'cover' }}
             />
             <Carousel.Caption>
               <h3>Image {idx}</h3>
