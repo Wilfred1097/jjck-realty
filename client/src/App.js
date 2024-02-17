@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Button, Carousel,  Form } from 'react-bootstrap';
+import { Container, Row, Col, Button, Carousel,  Form, Card } from 'react-bootstrap';
 import Iframe from 'react-iframe';
 import NavbarComponent from './pages/NavBar';
 
@@ -74,45 +74,32 @@ function App() {
       </Carousel>
 
       {/* Listings */}
-      <Container className="mt-5" id='listing' fluid>
+      <Container className="mt-5" id="listing" fluid>
         <Row>
-          <Col className='text-center mb-4'>
+          <Col className="text-center mb-4">
             <h3>These are the newly listed lots.</h3>
-            {/* <p>These are the newly listed lots.</p> */}
           </Col>
         </Row>
-        {lots.slice(0, 12).map((lot, index) => (
-          index % 4 === 0 && (
-            <Row key={index}>
-              {lots.slice(index, index + 4).map((lot, idx) => (
-                <Col key={idx} xs={12} md={6} lg={3} className="mb-4">
-                  <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                    <h3>{lot.name}</h3>
-                    <img src={lot.image} alt={lot.name} style={{ maxWidth: '100%', objectFit: 'cover', width: '100%', height: '100%' }} />
-                    <div style={{ 
-                      position: 'absolute', 
-                      bottom: 0, 
-                      left: 0, 
-                      width: '100%', 
-                      background: 'linear-gradient(transparent, rgba(0,0,0,1))',
-                      color: 'white',
-                      padding: '10px'
-                    }}>
-                      <Col style={{ fontSize: '13px'}}>
-                            {lot.description}<br />
-                            Block | Lot: {lot.block_number} | {lot.lot_number}<br />
-                            {/* Block number: {lot.block_number}<br />
-                            Lot number: {lot.lot_number}<br /> */}
-                            Dimension: {lot.dimension} sqm.<br />
-                            Price: <span>&#8369;</span>{lot.price}<br />
-                            {/* Downpayment: {lot.downpayment} */}
-                        </Col>
-                    </div>
+        {lots.map((lot, index) => (
+          <Row key={index}>
+            {lots.slice(index, index + 3).map((lot, idx) => (
+              <Col key={idx} xs={12} md={6} lg={4} className="mb-4">
+                <Card className="h-80 position-relative">
+                  <Card.Img variant="top" src={lot.image} className="rounded-top" style={{ objectFit: 'cover' }} />
+                  <div className="position-absolute bottom-0 w-100" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)' }}>
+                    <Card.Body>
+                      <Card.Text style={{ color: 'white', fontSize: '16px' }}>
+                      <span style={{ fontSize: '18px', fontWeight: 'bold' }}>  &#8369; {lot.price.toLocaleString()}</span><br />
+                        {lot.dimension} sqm. lot<br />
+                        {lot.description}
+                        {/* Block | Lot: {lot.block_number} | {lot.lot_number} */}
+                      </Card.Text>
+                    </Card.Body>
                   </div>
-                </Col>                
-              ))}
-            </Row>
-          )
+                </Card>
+              </Col>                
+            ))}
+          </Row>
         ))}
       </Container>
        {/* End of Listing */}
