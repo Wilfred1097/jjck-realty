@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ViewAllListings from './pages/Listings';
 import MyAccount from './pages/account';
+import LotDetailsPage from './pages/LotDetails';
 
 const root = createRoot(document.getElementById('root'));
 
@@ -20,6 +21,7 @@ root.render(
         <Route path="/register" element={<Register />} />
         <Route path="/listings" element={<ViewAllListings />} />
         <Route path="/myaccount" element={<MyAccount />} />
+        <Route path="/lot-details/:lot_Id" element={<LotDetailsPage />} />
       </Routes>
     </Router>
   </React.StrictMode>
