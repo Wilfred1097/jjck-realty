@@ -8,6 +8,7 @@ function LotDetailsPage() {
     const [lotDetails, setLotDetails] = useState(null);
     const [selectedDate, setSelectedDate] = useState('');
     const [isMobileView, setIsMobileView] = useState(false);
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchLotDetails = async () => {
@@ -36,6 +37,14 @@ function LotDetailsPage() {
         };
     }, [lot_Id]);
 
+    const handleRequestTour = () => {
+        if (token) {
+            console.log('Request submitted');
+        } else {
+            alert('You must login first');
+        }
+    };
+
     return (
         <>
             <TopBar />
@@ -59,13 +68,6 @@ function LotDetailsPage() {
                         {/* Additional Card */}
                         <Card style={{ width: '30%', height: '350px' }}>
                             <Card.Body>
-                                <Card.Title>Lot Details</Card.Title>
-                                <Card.Text style={{ margin: 0 }}>
-                                    <p style={{ margin: 0 }}>Description: {lotDetails.description}</p>
-                                    <p style={{ margin: 0 }}>Price: &#8369;{lotDetails.price.toLocaleString()}</p>
-                                    <p style={{ margin: 0 }}>Dimension: {lotDetails.dimension} sqm.</p>
-                                    <p style={{ margin: 0 }}>Block | Lot: {lotDetails.block_number} | {lotDetails.lot_number}</p><hr/>
-                                </Card.Text>
                                 <Card.Title>Request a Tour</Card.Title>
                                 <Form.Group>
                                     <Form.Label>Select Date</Form.Label>
@@ -76,7 +78,7 @@ function LotDetailsPage() {
                                         className='mb-3'
                                     />
                                 </Form.Group>
-                                <Button variant="primary" className='w-100'>Request</Button>
+                                <Button variant="primary" className='w-100' onClick={handleRequestTour}>Request</Button>
                             </Card.Body>
                         </Card>
                     </div>
@@ -108,8 +110,7 @@ function LotDetailsPage() {
                                         onChange={(e) => setSelectedDate(e.target.value)}
                                     />
                                 </Form.Group>
-                                <Button>Request a Tour</Button>
-
+                                <Button onClick={handleRequestTour}>Request a Tour</Button>
                             </Card.Body>
                         </Card>
                     </div>
