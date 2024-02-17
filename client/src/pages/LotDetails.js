@@ -10,6 +10,7 @@ function LotDetailsPage() {
     const [isMobileView, setIsMobileView] = useState(false);
     const token = localStorage.getItem('token');
     const [showAlert, setShowAlert] = useState(false);
+    const [dateError, setDateError] = useState('');
 
     useEffect(() => {
         const fetchLotDetails = async () => {
@@ -38,9 +39,37 @@ function LotDetailsPage() {
         };
     }, [lot_Id]);
 
+    const handleSubmit = () => {
+        if (selectedDate.trim() === '') {
+            setDateError('Please select a date.');
+            return;
+        }
+
+        // Clear any previous date error
+        setDateError('');
+
+        const selectedDateTime = new Date(selectedDate).getTime();
+        const threeDaysLater = new Date();
+        threeDaysLater.setDate(threeDaysLater.getDate() + 3);
+
+        if (selectedDateTime < threeDaysLater.getTime()) {
+            setDateError('Selected date must be at least 3 days from today.');
+            return;
+        }
+
+        // Proceed with handling tour request...
+        // Extract user ID from token
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        // console.log('Decoded Token:', decodedToken); // Log decoded token
+        const email = decodedToken.email;
+        console.log('Block Number:', lotDetails.block_number);
+        console.log('Lot Number:', lotDetails.lot_number);
+        console.log('Email:', email);
+    };
+
     const handleRequestTour = () => {
         if (token) {
-            console.log('Request submitted');
+            handleSubmit();
         } else {
             setShowAlert(true);
         }
@@ -76,6 +105,7 @@ function LotDetailsPage() {
                                         onChange={(e) => setSelectedDate(e.target.value)}
                                         className='mb-3'
                                     />
+                                    {dateError && <Alert variant="danger">{dateError}</Alert>}
                                 </Form.Group>
                                 <Button variant="primary" className='w-100' onClick={handleRequestTour}>Request</Button>
                             </Card.Body>
@@ -107,6 +137,7 @@ function LotDetailsPage() {
                                         value={selectedDate}
                                         onChange={(e) => setSelectedDate(e.target.value)}
                                     />
+                                    {dateError && <Alert variant="danger">{dateError}</Alert>}
                                 </Form.Group>
                                 <Button onClick={handleRequestTour}>Request a Tour</Button>
                             </Card.Body>
