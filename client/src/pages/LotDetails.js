@@ -132,7 +132,7 @@ function LotDetailsPage() {
                                     />
                                     {dateError && <Alert variant="danger">{dateError}</Alert>}
                                 </Form.Group>
-                                <Button variant="primary" className='w-100' onClick={handleRequestTour}>Request</Button>
+                                <Button variant="success" className='w-100' onClick={handleRequestTour}>Request</Button>
                             </Card.Body>
                         </Card>
                     </div>

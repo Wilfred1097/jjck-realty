@@ -46,7 +46,7 @@ const Register = () => {
       <Container className="d-flex align-items-center justify-content-center mt-5">
         <Card style={{ width: '400px' }}>
           <Card.Body>
-            <h2 className="text-center">Sign up</h2>
+            <h2 className="text-center">Customer Sign up</h2>
             <Formik
               initialValues={{
                 completename: '',
@@ -131,7 +131,7 @@ const Register = () => {
                     <ErrorMessage name="confirmPassword" component="div" className="text-danger" />
                   </BootstrapForm.Group>
 
-                  <Button variant="primary" type="submit" className="w-100 mt-4">
+                  <Button variant="success" type="submit" className="w-100 mt-4">
                     Sign up
                   </Button>
                 </Form>
@@ -139,7 +139,7 @@ const Register = () => {
             </Formik>
 
             <p className="text-center pt-4">
-              Already Registered?<a href="/login" style={{ textDecoration: 'none' }}>
+              Already Registered?<a href="/login" style={{ textDecoration: 'none', color: 'green' }}>
                 {' '}
                 Login here.
               </a>

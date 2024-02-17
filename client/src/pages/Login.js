@@ -44,7 +44,7 @@ const Login = () => {
       <Container className="d-flex align-items-center justify-content-center mt-5">
         <Card style={{ width: '400px' }}>
           <Card.Body>
-            <h2 className="text-center">Login</h2>
+            <h2 className="text-center">Customer Login</h2>
             <Formik
               initialValues={{ email: '', password: '' }}
               validationSchema={LoginValidationSchema}
@@ -76,7 +76,7 @@ const Login = () => {
                     <ErrorMessage name="password" component="div" className="text-danger" />
                   </div>
 
-                  <button type="submit" className="btn btn-primary w-100 mt-4">Login</button>
+                  <button type="submit" className="btn btn-success w-100 mt-4">Login</button>
                 </Form>
               )}
             </Formik>
@@ -87,7 +87,7 @@ const Login = () => {
                 </Alert>
             )}
 
-            <p className="text-center pt-4">Not Registered?<a href="/register" style={{ textDecoration: 'none'}}> Register here.</a></p>
+            <p className="text-center pt-4">Not Registered?<a href="/register" style={{ textDecoration: 'none', color: 'green'}}> Register here.</a></p>
           </Card.Body>
         </Card>
       </Container>
