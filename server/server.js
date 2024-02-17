@@ -203,21 +203,3 @@ app.get('/lots', async (req, res) => {
     return res.status(500).json({ status: 'ServerError', message: 'An unexpected error occurred. Please try again.' });
   }
 });
-
-// Add this endpoint to fetch data from lot_table based on lot_Id
-app.get('/lots/:lot_Id', async (req, res) => {
-  try {
-    const lotId = req.params.lot_Id;
-    const getLotByIdQuery = 'SELECT * FROM lot_table WHERE lot_Id = ?';
-    const [lotResult] = await db.query(getLotByIdQuery, [lotId]);
-
-    if (lotResult.length === 0) {
-      return res.status(404).json({ status: 'NotFound', message: 'Lot not found.' });
-    }
-
-    return res.status(200).json({ status: 'Success', lot: lotResult[0] });
-  } catch (error) {
-    console.error('Error retrieving lot by ID:', error);
-    return res.status(500).json({ status: 'ServerError', message: 'An unexpected error occurred. Please try again.' });
-  }
-});

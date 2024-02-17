@@ -38,9 +38,21 @@ function LotDetailsPage() {
         };
     }, [lot_Id]);
 
+    const handleSubmit = () => {
+        if (token) {
+            // Extract user ID from token
+            const decodedToken = JSON.parse(atob(token.split('.')[1]));
+            console.log('Decoded Token:', decodedToken); // Log decoded token
+            const email = decodedToken.email;
+            console.log('Block Number:', lotDetails.block_number);
+            console.log('Lot Number:', lotDetails.lot_number);
+            console.log('Email:', email);
+        }
+    };     
+
     const handleRequestTour = () => {
         if (token) {
-            console.log('Request submitted');
+            handleSubmit();
         } else {
             setShowAlert(true);
         }
