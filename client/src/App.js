@@ -71,7 +71,7 @@ function App() {
               className="d-block w-100 img-fluid"
               src={getRandomImage()}
               alt={`Slide ${idx}`}
-              style={{ maxHeight: '605px', objectFit: 'cover' }}
+              style={{minHeight: '350px' ,maxHeight: '605px', objectFit: 'cover' }}
             />
             <Carousel.Caption>
               <h3>Image {idx}</h3>
