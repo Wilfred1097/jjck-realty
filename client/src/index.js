@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import ViewAllListings from './pages/Listings';
 import MyAccount from './pages/account';
 import LotDetailsPage from './pages/LotDetails';
+import ResetPassworPaged from './pages/ResetPassword';
 
 const root = createRoot(document.getElementById('root'));
 
@@ -18,6 +19,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/reset-password" element={<ResetPassworPaged />} />
         <Route path="/register" element={<Register />} />
         <Route path="/listings" element={<ViewAllListings />} />
         <Route path="/myaccount" element={<MyAccount />} />

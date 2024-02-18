@@ -148,12 +148,36 @@ app.post('/forgot-password', async (req, res) => {
   }
 });
 
-// Add this endpoint in your backend server
 app.post('/reset-password', async (req, res) => {
   try {
-    const { email, resetToken, newPassword } = req.body;
+    const { email, newPassword } = req.body;
 
-    // Implement logic to verify the reset token and update the user's password in the database
+    // Query the database to get the current hashed password
+    const getPasswordQuery = 'SELECT password FROM users WHERE email = ?';
+    const [rows] = await db.query(getPasswordQuery, [email]);
+
+    if (rows.length === 0) {
+      return res.status(400).json({ status: 'Error', message: 'User not found.' });
+    }
+
+    const hashedPassword = rows[0].password;
+
+    // Compare the new password with the current hashed password
+    const passwordMatch = await bcryptjs.compare(newPassword, hashedPassword);
+
+    if (passwordMatch) {
+      // If the new password matches the current hashed password, return an error
+      return res.status(400).json({ status: 'Error', message: 'Please choose a new password.' });
+    }
+
+    // Hash the new password using bcryptjs with salt 10
+    const newHashedPassword = await bcryptjs.hash(newPassword, 10);
+
+    // Update the password in the users table
+    const updateQuery = 'UPDATE users SET password = ? WHERE email = ?';
+    await db.query(updateQuery, [newHashedPassword, email]);
+
+    console.log('Password updated successfully');
 
     return res.status(200).json({ status: 'Success', message: 'Password reset successful.' });
   } catch (error) {
@@ -162,22 +186,23 @@ app.post('/reset-password', async (req, res) => {
   }
 });
 
+
 // Add this endpoint to check if the email is present in the database
-app.post('/check-email-exists', async (req, res) => {
+app.post('/check-user-exists', async (req, res) => {
   try {
-    const { email } = req.body;
-    const checkEmailQuery = 'SELECT * FROM users WHERE email = ?';
+    const { email, birthdate } = req.body;
+    const checkUserQuery = 'SELECT * FROM users WHERE email = ? AND birthdate = ?';
 
-    // Check if the email already exists
-    const [emailResults] = await db.query(checkEmailQuery, [email]);
+    // Check if the user already exists
+    const [userResults] = await db.query(checkUserQuery, [email, birthdate]);
 
-    if (emailResults.length > 0) {
+    if (userResults.length > 0) {
       return res.status(200).json({ exists: true });
     } else {
       return res.status(200).json({ exists: false });
     }
   } catch (error) {
-    console.error('Error checking email existence:', error);
+    console.error('Error checking user existence:', error);
     return res.status(500).json({ status: 'ServerError', message: 'An unexpected error occurred. Please try again.' });
   }
 });

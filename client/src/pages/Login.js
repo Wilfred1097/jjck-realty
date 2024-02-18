@@ -87,7 +87,8 @@ const Login = () => {
                 </Alert>
             )}
 
-            <p className="text-center pt-4">Not Registered?<a href="/register" style={{ textDecoration: 'none', color: 'green'}}> Register here.</a></p>
+            <p className="text-center pt-4" style={{marginTop: '-6px', marginBottom: '0px', fontSize: '14px'}}>Not Registered?<a href="/register" style={{ textDecoration: 'none', color: 'green'}}> Register here.</a></p><hr></hr>
+            <p className="text-center pt-4" style={{marginTop: '-25px', fontSize: '14px'}}>Forgot password?<a href="/reset-password" style={{ textDecoration: 'none', color: 'green'}}> Reset Here.</a></p>
           </Card.Body>
         </Card>
       </Container>
