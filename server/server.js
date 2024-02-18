@@ -100,7 +100,10 @@ app.post('/login', async (req, res) => {
 
     // User authentication is successful; generate a JWT token
     const user = {
-      id: userResults[0].id,
+      id: userResults[0].userId,
+      name: userResults[0].complete_name,
+      birthdate: userResults[0].birthdate,
+      address: userResults[0].address,
       email: userResults[0].email,
       // Add more user properties as needed
     };
@@ -114,6 +117,7 @@ app.post('/login', async (req, res) => {
     return res.status(500).json({ status: 'ServerError', message: 'An unexpected error occurred. Please try again.' });
   }
 });
+
 
 // Add this endpoint to retrieve all users
 app.get('/users', async (req, res) => {
@@ -259,5 +263,21 @@ app.post('/submit-tour-request', async (req, res) => {
   } catch (error) {
     console.error('Error submitting tour request:', error);
     return res.status(500).json({ status: 'ServerError', message: 'An unexpected error occurred. Please try again.' });
+  }
+});
+
+app.post('/tour-request', async (req, res) => {
+  try {
+      // Extract the name parameter from the request body
+      const { name } = req.body;
+
+      // Construct the query with a WHERE clause to filter by name
+      const getAllLotsQuery = `SELECT * FROM tour_request_vew WHERE user_name = ?`;
+      const [lotsResults] = await db.query(getAllLotsQuery, [name]);
+
+      return res.status(200).json({ status: 'Success', lots: lotsResults });
+  } catch (error) {
+      console.error('Error retrieving lots:', error);
+      return res.status(500).json({ status: 'ServerError', message: 'An unexpected error occurred. Please try again.' });
   }
 });

@@ -1,18 +1,20 @@
 import React from 'react';
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function TopBar() {
     // Check if the token is present in the local storage
     const token = localStorage.getItem('token');
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         // Remove token from local storage
         localStorage.removeItem('token');
         // Reload the page
-        window.location.reload();
+        navigate('/');
     };
-    
+
     return (
         <Navbar bg="light" className='p-1 sticky-top'>
             <Container>
@@ -23,10 +25,8 @@ function TopBar() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Nav className="mr-auto">
-                        {token ? (
+                        {token && location.pathname !== '/myaccount' && (
                             <Nav.Link className="mr-3" as={Link} to="/myaccount">Account</Nav.Link>
-                        ) : (
-                            <Nav.Link className="mr-3" as={Link} to="/login"></Nav.Link>
                         )}
                     </Nav>
                     <Nav className="ml-auto">

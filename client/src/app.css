@@ -41,4 +41,6 @@
   margin: 5px;
 }
 
-  
+.nav-link:hover {
+  color: #28a745 !important; /* Change this to your desired hover color */
+}

@@ -84,15 +84,15 @@ function App() {
       {/* Listings */}
       <Container className="mt-5" id="listing" fluid>
         <Row>
-          <Col className="text-center mb-4">
-            <h3>These are the newly listed lots.</h3>
+          <Col className="text-center mb-5 mt-5">
+            <h3>Featured Listings</h3>
           </Col>
         </Row>
         <Row key={index}>
           {currentLots.map((lot, idx) => (
             <Col key={idx} xs={12} md={6} lg={3} className="mb-4">
               <Link to={`/lot-details/${lot.lot_Id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Card className="h-80 position-relative">
+                <Card className="h-100 position-relative">
                   <Card.Img variant="top" src={lot.image} className="rounded-top" style={{ objectFit: 'cover' }} />
                   <div className="position-absolute bottom-0 w-100" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)' }}>
                     <Card.Body>

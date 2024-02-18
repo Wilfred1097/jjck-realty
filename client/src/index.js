@@ -7,7 +7,7 @@ import { createRoot } from 'react-dom/client';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ViewAllListings from './pages/Listings';
-import MyAccount from './pages/account';
+import MyAccount from './pages/accountPage';
 import LotDetailsPage from './pages/LotDetails';
 import ResetPassworPaged from './pages/ResetPassword';
 
