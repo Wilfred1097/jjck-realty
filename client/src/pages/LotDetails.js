@@ -107,24 +107,28 @@ function LotDetailsPage() {
                 {lotDetails && !isMobileView ? (
                     <div className="d-flex justify-content-between">
                         {/* Lot Details Card */}
-                        <Card style={{ width: '69%', height: '350px', overflow: 'hidden' }}>
-                            <Card.Img variant="top" src={lotDetails.image} alt={lotDetails.name} style={{ maxHeight: '350px', objectFit: 'cover' }} />
+                        <Card style={{ width: '69%', height: '500px', overflow: 'hidden' }}>
+                            <Card.Img variant="top" src={lotDetails.image} alt={lotDetails.name} style={{ maxHeight: '500px', objectFit: 'cover' }} />
                         </Card>
 
                         {/* Additional Card */}
-                        <Card style={{ width: '30%', height: '350px' }}>
+                        <Card style={{ width: '30%', height: '500px' }}>
                             <Card.Body>
-                                <Card.Title style={{fontSize: '27px', marginBottom: '-3px'}}>Lot Details</Card.Title><br/>
+                                <Card.Title style={{fontSize: '24px', marginBottom: '-8px'}}>Lot Details</Card.Title><br/>
                                 <Card.Text style={{ margin: 0 }}>
-                                    <p style={{ margin: 0, fontSize: '15px'}}>Price: <b>&#8369;{lotDetails.price.toLocaleString()}</b></p>
-                                    <p style={{ margin: 0, fontSize: '15px'}}>Dimension: <b>{lotDetails.dimension} sqm.</b></p>
-                                    <p style={{ margin: 0, fontSize: '15px'}}>Block #: <b>{lotDetails.block_number}</b> | Lot #: <b>{lotDetails.lot_number}</b></p><hr />
+                                    <p style={{ margin: 3, fontSize: '14px'}}>Price: <b>&#8369;{lotDetails.price.toLocaleString()}</b></p>
+                                    <p style={{ margin: 3, fontSize: '14px'}}>Dimension: <b>{lotDetails.dimension} sqm.</b></p>
+                                    <p style={{ margin: 3, fontSize: '14px'}}>Block #: <b>{lotDetails.block_number}</b> | Lot #: <b>{lotDetails.lot_number}</b></p><hr />
+                                    <Card.Title style={{fontSize: '24px', marginBottom: '-8px'}}>Price Details</Card.Title><br/>
+                                    <p style={{ margin: 3, fontSize: '14px'}}>Term: <b>{lotDetails.term} years.</b></p>
+                                    <p style={{ margin: 3, fontSize: '14px'}}>Downpayment: <b>&#8369;{(lotDetails.price / 2).toLocaleString()}</b></p>
+                                    <p style={{ margin: 3, fontSize: '14px'}}>Monthly: <b>&#8369;{((lotDetails.price / 2) / 24 ).toLocaleString()}</b></p><hr/>
                                 </Card.Text>
-                                <Card.Title style={{fontSize: '27px'}}>Request a Tour</Card.Title>
+                                <Card.Title style={{fontSize: '24px', marginTop: '10px'}}>Request a Tour</Card.Title>
                                 <Form.Group>
-                                    <Form.Label>Select Date</Form.Label>
+                                    <Form.Label style={{marginTop: '10px', marginBottom: '-10px'}}>Select Date</Form.Label>
                                     <Form.Control
-                                        style={{ fontSize: '14px' }}
+                                        style={{ fontSize: '14px', marginTop: '10px' }}
                                         type="date"
                                         value={selectedDate}
                                         onChange={(e) => setSelectedDate(e.target.value)}
@@ -139,14 +143,19 @@ function LotDetailsPage() {
                 ) : lotDetails ? (
                     <div>
                         {/* Lot Details Card */}
-                        <Card>
+                        <Card style={{minheight: '540px'}}>
                             <Card.Img variant="top" src={lotDetails.image} alt={lotDetails.name} />
                             <Card.Body>
                                 <Card.Title>{lotDetails.name}</Card.Title>
                                 <Card.Text>
-                                    <p>Price: &#8369;{lotDetails.price.toLocaleString()}</p>
-                                    <p>Dimension: {lotDetails.dimension} sqm.</p>
-                                    <p>Block | Lot: {lotDetails.block_number} | {lotDetails.lot_number}</p>
+                                    <Card.Title style={{fontSize: '24px', marginBottom: '-8px', marginTop: '-20px'}}>Lot Details</Card.Title><br/>
+                                    <p style={{ margin: 0, fontSize: '14px'}}>Price: &#8369;{lotDetails.price.toLocaleString()}</p>
+                                    <p style={{ margin: 0, fontSize: '14px'}}>Dimension: {lotDetails.dimension} sqm.</p>
+                                    <p style={{ margin: 0, fontSize: '14px'}}>Block | Lot: {lotDetails.block_number} | {lotDetails.lot_number}</p><hr/><br/>
+                                    <Card.Title style={{fontSize: '24px', marginBottom: '-8px', marginTop: '-20px'}}>Price Details</Card.Title><br/>
+                                    <p style={{ margin: 0, fontSize: '14px'}}>Term: <b>{lotDetails.term} years.</b></p>
+                                    <p style={{ margin: 0, fontSize: '14px'}}>Downpayment: <b>&#8369;{(lotDetails.price / 2).toLocaleString()}</b></p>
+                                    <p style={{ margin: 0, fontSize: '14px'}}>Monthly: <b>&#8369;{((lotDetails.price / 2) / 24 ).toLocaleString()}</b></p>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -156,15 +165,16 @@ function LotDetailsPage() {
                             <Card.Body>
                                 <Card.Title>Request a Tour</Card.Title>
                                 <Form.Group>
-                                    <Form.Label>Select Date</Form.Label>
+                                    <Form.Label style={{ fontSize: '14px' }}>Select Date</Form.Label>
                                     <Form.Control
+                                        style={{ fontSize: '14px'}}
                                         type="date"
                                         value={selectedDate}
                                         onChange={(e) => setSelectedDate(e.target.value)}
                                     />
                                     {dateError && <Alert variant="danger">{dateError}</Alert>}
                                 </Form.Group>
-                                <Button onClick={handleRequestTour}>Request a Tour</Button>
+                                <Button onClick={handleRequestTour} style={{marginTop: '10px', width: '100%'}} variant='success'>Request a Tour</Button>
                             </Card.Body>
                         </Card>
                     </div>
