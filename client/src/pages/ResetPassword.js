@@ -43,9 +43,9 @@ function ResetPasswordPage() {
     const handlePasswordSubmit = async () => {
         try {
             await resetPassword.validate({ password, confirmPassword }, { abortEarly: false });
-    
+
             // Passwords are valid, proceed with password submission logic
-    
+
             // Call the reset-password API endpoint
             const response = await fetch('http://localhost:3001/reset-password', {
                 method: 'POST',
@@ -57,7 +57,7 @@ function ResetPasswordPage() {
                     newPassword: password, // Send the new password directly
                 }),
             });
-    
+
             if (response.ok) {
                 console.log('Password reset successful');
                 setShowPasswordModal(false); // Close the modal
@@ -73,7 +73,7 @@ function ResetPasswordPage() {
             // Handle error if needed
             setValidationError(error.message);
         }
-    };          
+    };
 
     const handleSubmitButtonClick = async (e) => {
         e.preventDefault(); // Prevent default form submission
@@ -84,54 +84,76 @@ function ResetPasswordPage() {
         <>
             <Navbar bg="light" expand="lg" fixed="sticky-top">
                 <Container fluid>
-                    <Navbar.Brand href="/" className="m-1">JJCK REALTY SERVICES</Navbar.Brand>
+                    <Navbar.Brand href="/" className="p-1">JJCK REALTY SERVICES</Navbar.Brand>
                 </Container>
             </Navbar>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }}>
+                <Container>
+                    <Container className="d-flex align-items-center justify-content-center">
+                        <Card style={{ minWidth: '350px' }}>
+                            <Card.Body>
+                                <Card.Title>Reset Password</Card.Title>
+                                <Form onSubmit={handleSubmit}>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label style={{ fontSize: '14px' }}>Email address</Form.Label>
+                                        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                                    </Form.Group>
+                                    {/*  */}
+                                    <Form.Group controlId="formBasicBirthdate">
+                                        <Form.Label style={{ fontSize: '14px' }}>Birthdate</Form.Label>
+                                        <Form.Control type="date" placeholder="Enter birthdate" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} required />
+                                    </Form.Group>
 
-            <Container className="d-flex align-items-center justify-content-center mt-5">
-                <Card style={{ minWidth: '350px' }}>
-                    <Card.Body>
-                        <Card.Title>Reset Password</Card.Title>
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Group controlId="formBasicEmail">
-                                    <Form.Label style={{ fontSize: '14px' }}>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                                </Form.Group>
-                                {/*  */}
-                                <Form.Group controlId="formBasicBirthdate">
-                                    <Form.Label style={{ fontSize: '14px' }}>Birthdate</Form.Label>
-                                    <Form.Control type="date" placeholder="Enter birthdate" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} required />
-                                </Form.Group>
+                                    <Button variant="success" onClick={handleSubmitButtonClick} style={{ marginTop: '10px' }} className='w-100'>Submit</Button>
+                                </Form>
+                            </Card.Body>
+                        </Card>
+                    </Container>
 
-                                <Button variant="success" onClick={handleSubmitButtonClick} style={{ marginTop: '10px' }} className='w-100'>Submit</Button>
+                    {/* Password Modal */}
+                    <Modal
+                        show={showPasswordModal}
+                        onHide={() => setShowPasswordModal(false)}
+                        centered
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title>Enter New Password</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form>
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label style={{ fontSize: '13px' }}>Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="Enter password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        style={{ fontSize: '13px'}}
+                                        required
+                                    />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicConfirmPassword">
+                                    <Form.Label style={{ fontSize: '13px' }}>Confirm Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="Confirm password"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        style={{ fontSize: '13px'}}
+                                        required
+                                    />
+                                    {validationError && <Form.Text className="text-danger">{validationError}</Form.Text>}
+                                </Form.Group>
                             </Form>
-                    </Card.Body>
-                </Card>
-            </Container>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={() => setShowPasswordModal(false)}>Cancel</Button>
+                            <Button variant="success" onClick={handlePasswordSubmit}>Submit</Button>
+                        </Modal.Footer>
+                    </Modal>
 
-            {/* Password Modal */}
-            <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Enter New Password</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label style={{ fontSize: '14px' }}>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                        </Form.Group>
-                        <Form.Group controlId="formBasicConfirmPassword">
-                            <Form.Label style={{ fontSize: '14px' }}>Confirm Password</Form.Label>
-                            <Form.Control type="password" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-                            {validationError && <Form.Text className="text-danger">{validationError}</Form.Text>}
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowPasswordModal(false)}>Cancel</Button>
-                    <Button variant="success" onClick={handlePasswordSubmit}>Submit</Button>
-                </Modal.Footer>
-            </Modal>
+                </Container>
+            </div>
         </>
     );
 }

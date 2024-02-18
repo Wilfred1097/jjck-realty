@@ -37,14 +37,14 @@ const Register = () => {
     <>
       <Navbar bg="light" expand="lg" fixed="sticky-top">
         <Container fluid>
-          <Navbar.Brand href="/" className="m-1">
+          <Navbar.Brand href="/" className="p-0">
             JJCK REALTY SERVICES
           </Navbar.Brand>
         </Container>
       </Navbar>
 
-      <Container className="d-flex align-items-center justify-content-center mt-5">
-        <Card style={{ width: '400px' }}>
+      <Container className="d-flex align-items-center justify-content-center mt-2">
+        <Card style={{ width: '400px', height: '570px' }}>
           <Card.Body>
             <h2 className="text-center">Customer Sign up</h2>
             <Formik
@@ -61,84 +61,90 @@ const Register = () => {
               {() => (
                 <Form>
                   <BootstrapForm.Group controlId="formBasicName">
-                    <BootstrapForm.Label>Complete Name</BootstrapForm.Label>
+                    <BootstrapForm.Label style={{fontSize: '13px'}}>Complete Name</BootstrapForm.Label>
                     <Field
                       type="text"
                       id="completename"
                       name="completename"
                       className="form-control"
                       placeholder="Enter complete name"
+                      style={{fontSize: '13px'}}
                     />
-                    <ErrorMessage name="completename" component="div" className="text-danger" />
+                    <ErrorMessage name="completename" component="div" className="text-danger"  style={{ fontSize: '13px'}}/>
                   </BootstrapForm.Group>
 
                   <BootstrapForm.Group controlId="formBasicAddress">
-                    <BootstrapForm.Label>Address</BootstrapForm.Label>
+                    <BootstrapForm.Label style={{fontSize: '13px'}}>Address</BootstrapForm.Label>
                     <Field
                       type="text"
                       id="address"
                       name="address"
                       className="form-control"
                       placeholder="Address"
+                      style={{fontSize: '13px'}}
                     />
-                    <ErrorMessage name="address" component="div" className="text-danger" />
+                    <ErrorMessage name="address" component="div" className="text-danger"  style={{ fontSize: '13px'}}/>
                   </BootstrapForm.Group>
 
                   <BootstrapForm.Group controlId="formBasicBirthdate">
-                    <BootstrapForm.Label>Birthdate</BootstrapForm.Label>
+                    <BootstrapForm.Label style={{fontSize: '13px'}}>Birthdate</BootstrapForm.Label>
                     <Field
                       type="date"
                       id="birthdate"
                       name="birthdate"
                       className="form-control"
+                      style={{fontSize: '13px'}}
                     />
-                    <ErrorMessage name="birthdate" component="div" className="text-danger" />
+                    <ErrorMessage name="birthdate" component="div" className="text-danger"  style={{ fontSize: '13px'}}/>
                   </BootstrapForm.Group>
 
                   <BootstrapForm.Group controlId="formBasicEmail">
-                    <BootstrapForm.Label>Email</BootstrapForm.Label>
+                    <BootstrapForm.Label style={{fontSize: '13px'}}>Email</BootstrapForm.Label>
                     <Field
                       type="email"
                       id="email"
                       name="email"
                       className="form-control"
                       placeholder="Enter Email"
+                      style={{fontSize: '13px'}}
                     />
-                    <ErrorMessage name="email" component="div" className="text-danger" />
+                    <ErrorMessage name="email" component="div" className="text-danger"  style={{ fontSize: '13px'}}/>
                   </BootstrapForm.Group>
 
                   <BootstrapForm.Group controlId="formBasicPassword">
-                    <BootstrapForm.Label>Password</BootstrapForm.Label>
+                    <BootstrapForm.Label style={{fontSize: '13px'}}>Password</BootstrapForm.Label>
                     <Field
                       type="password"
                       id="password"
                       name="password"
                       className="form-control"
                       placeholder="Password"
+                      style={{fontSize: '13px'}}
                     />
-                    <ErrorMessage name="password" component="div" className="text-danger" />
+                    <ErrorMessage name="password" component="div" className="text-danger"  style={{ fontSize: '13px'}}/>
                   </BootstrapForm.Group>
 
                   <BootstrapForm.Group controlId="formBasicConfirmPassword">
-                    <BootstrapForm.Label>Confirm Password</BootstrapForm.Label>
+                    <BootstrapForm.Label style={{fontSize: '13px'}}>Confirm Password</BootstrapForm.Label>
                     <Field
                       type="password"
                       id="confirmPassword"
                       name="confirmPassword"
                       className="form-control"
                       placeholder="Confirm Password"
+                      style={{fontSize: '13px'}}
                     />
-                    <ErrorMessage name="confirmPassword" component="div" className="text-danger" />
+                    <ErrorMessage name="confirmPassword" component="div" className="text-danger"  style={{ fontSize: '13px'}}/>
                   </BootstrapForm.Group>
 
-                  <Button variant="success" type="submit" className="w-100 mt-4">
+                  <Button variant="success" type="submit" className="w-100 mt-3" style={{ fontSize: '13px'}}>
                     Sign up
                   </Button>
                 </Form>
               )}
             </Formik>
 
-            <p className="text-center pt-4">
+            <p className="text-center pt-4" style={{fontSize: '13px'}}>
               Already Registered?<a href="/login" style={{ textDecoration: 'none', color: 'green' }}>
                 {' '}
                 Login here.

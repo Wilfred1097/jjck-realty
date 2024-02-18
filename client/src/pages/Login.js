@@ -37,7 +37,7 @@ const Login = () => {
     <>
       <Navbar bg="light" expand="lg" fixed="sticky-top">
         <Container fluid>
-          <Navbar.Brand href="/" className="m-1">JJCK REALTY SERVICES</Navbar.Brand>
+          <Navbar.Brand href="/" className="p-0">JJCK REALTY SERVICES</Navbar.Brand>
         </Container>
       </Navbar>
 
@@ -53,41 +53,43 @@ const Login = () => {
               {() => (
                 <Form>
                   <div className="mb-2">
-                    <label htmlFor="email" className="form-label">Email</label>
+                    <label htmlFor="email" className="form-label" style={{fontSize: '14px'}}>Email</label>
                     <Field
                       type="email"
                       id="email"
                       name="email"
                       className="form-control"
                       placeholder="Enter Email"
+                      style={{fontSize: '14px'}}
                     />
-                    <ErrorMessage name="email" component="div" className="text-danger" />
+                    <ErrorMessage name="email" component="div" className="text-danger"  style={{ fontSize: '13px'}}/>
                   </div>
 
                   <div className="mb-2">
-                    <label htmlFor="password" className="form-label">Password</label>
+                    <label htmlFor="password" className="form-label" style={{fontSize: '14px'}}>Password</label>
                     <Field
                       type="password"
                       id="password"
                       name="password"
                       className="form-control"
                       placeholder="Password"
+                      style={{fontSize: '14px'}}
                     />
-                    <ErrorMessage name="password" component="div" className="text-danger" />
+                    <ErrorMessage name="password" component="div" className="text-danger" style={{ fontSize: '13px'}}/>
                   </div>
 
-                  <button type="submit" className="btn btn-success w-100 mt-4">Login</button>
+                  <button type="submit" className="btn btn-success w-100 mt-4" style={{ fontSize: '13px'}}>Login</button>
                 </Form>
               )}
             </Formik>
 
             {showAlert && (
-                <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible style={{ position: 'fixed', top: '50px', left: '50%', transform: 'translateX(-50%)', zIndex: '1000', width: '300px' }}>
+                <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible style={{ position: 'fixed', top: '50px', left: '50%', transform: 'translateX(-50%)', zIndex: '1000', width: '300px'}}>
                     Invalid username or password
                 </Alert>
             )}
 
-            <p className="text-center pt-4" style={{marginTop: '-6px', marginBottom: '0px', fontSize: '14px'}}>Not Registered?<a href="/register" style={{ textDecoration: 'none', color: 'green'}}> Register here.</a></p><hr></hr>
+            <p className="text-center pt-4" style={{marginTop: '-6px', marginBottom: '0px', fontSize: '14px'}}>Not Registered?<a href="/register" style={{ textDecoration: 'none', color: 'green' }}> Sign up here.</a></p><hr></hr>
             <p className="text-center pt-4" style={{marginTop: '-25px', fontSize: '14px'}}>Forgot password?<a href="/reset-password" style={{ textDecoration: 'none', color: 'green'}}> Reset Here.</a></p>
           </Card.Body>
         </Card>
