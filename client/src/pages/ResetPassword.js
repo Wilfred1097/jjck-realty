@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Navbar, Card, Form, Button, Modal } from 'react-bootstrap';
+import { Container, Navbar, Card, Form, Button, Modal, Alert } from 'react-bootstrap';
 import { resetPassword } from '../validation/LoginRegistration';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +11,8 @@ function ResetPasswordPage() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [validationError, setValidationError] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
 
     const handleSubmit = async () => {
         try {
@@ -32,8 +34,9 @@ function ResetPasswordPage() {
                 return;
             }
 
-            // User does not exist, proceed to open the password modal
-            alert('User did not exists');
+            // User does not exist, show an alert
+            setAlertMessage('User does not exist.');
+            setShowAlert(true);
         } catch (error) {
             console.error('Error checking user existence:', error);
             // Handle error if needed
@@ -63,7 +66,8 @@ function ResetPasswordPage() {
                 setShowPasswordModal(false); // Close the modal
                 navigate('/login');
             } else if (response.status === 400) {
-                alert('Please choose a new password.'); // Display an alert error if the response status is 400
+                setShowAlert(true); // Display the alert
+                setAlertMessage('Please choose a new password.');
             } else {
                 console.error('Password reset failed:', response.statusText);
                 // Handle other failure cases
@@ -152,6 +156,12 @@ function ResetPasswordPage() {
                         </Modal.Footer>
                     </Modal>
 
+                    {/* Alert */}
+                    <div style={{ position: 'absolute', top: '10px', right: '400px', left: '400px', zIndex: 9999 }}>
+                        <Alert variant="danger" show={showAlert} onClose={() => setShowAlert(false)} dismissible>
+                            {alertMessage}
+                        </Alert>
+                    </div>
                 </Container>
             </div>
         </>
