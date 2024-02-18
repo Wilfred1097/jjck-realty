@@ -96,9 +96,9 @@ function App() {
                   <Card.Img variant="top" src={lot.image} className="rounded-top" style={{ objectFit: 'cover' }} />
                   <div className="position-absolute bottom-0 w-100" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)' }}>
                     <Card.Body>
-                      <Card.Text style={{ color: 'white', fontSize: '16px' }}>
-                        <span style={{ fontSize: '18px', fontWeight: 'bold' }}>  &#8369; {lot.price.toLocaleString()}</span><br />
-                        {lot.dimension} sqm. lot<br />
+                      <Card.Text style={{ color: 'white', marginBottom: '-10px'}}>
+                        <span style={{ fontSize: '16px', fontWeight: 'bold' }}>  &#8369; {lot.price.toLocaleString()}</span><br />
+                        <span style={{ fontSize: '14px'}}>{lot.dimension} sqm.</span><br />
                         {lot.description}
                       </Card.Text>
                     </Card.Body>
