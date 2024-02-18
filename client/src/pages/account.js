@@ -10,7 +10,7 @@ function MyAccount() {
 
     return (
         <>
-            <button className="btn btn-primary m-2" onClick={handleShow}>
+            <button className="btn btn-success m-2" onClick={handleShow}>
             <FaAlignJustify />
             </button>
 

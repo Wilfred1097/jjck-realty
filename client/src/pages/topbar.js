@@ -31,9 +31,9 @@ function TopBar() {
                     </Nav>
                     <Nav className="ml-auto">
                         {token ? (
-                            <Button variant="success" className="rounded-pill" onClick={handleLogout}><b>Logout</b></Button>
+                            <Button variant="success" className="rounded-pill" style={{marginLeft: '5px'}} onClick={handleLogout}><b>Logout</b></Button>
                         ) : (
-                            <Button variant="success" className="rounded-pill" as={Link} to="/login"><b>Login</b></Button>
+                            <Button variant="success" style={{width: '100px'}} className="rounded-pill" as={Link} to="/login"><b>Login</b></Button>
                         )}
                     </Nav>
                 </Navbar.Collapse>
