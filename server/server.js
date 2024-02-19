@@ -272,8 +272,12 @@ app.post('/tour-request', async (req, res) => {
       const { name } = req.body;
 
       // Construct the query with a WHERE clause to filter by name
-      const getAllLotsQuery = `SELECT * FROM tour_request_vew WHERE user_name = ?`;
+      const getAllLotsQuery = `SELECT * FROM tour_request_view WHERE user_name = ?`;
       const [lotsResults] = await db.query(getAllLotsQuery, [name]);
+
+      if (lotsResults.length === 0) {
+          return res.status(200).json({ status: 'Success', message: 'No available Tour Request' });
+      }
 
       return res.status(200).json({ status: 'Success', lots: lotsResults });
   } catch (error) {
