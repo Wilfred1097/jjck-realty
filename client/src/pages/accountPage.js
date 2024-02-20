@@ -6,7 +6,6 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 function MyAccount() {
     const [userEmail, setUserEmail] = useState('');
     const [userName, setUserName] = useState('');
-    const [userId, setUserId] = useState('');
     const [userBirthdate, setUserBirthdate] = useState('');
     const [userAddress, setUserAddress] = useState('');
     const [tourRequestData, setTourRequestData] = useState([]);
@@ -22,11 +21,10 @@ function MyAccount() {
         if (!token) return;
 
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        const { email, name, id, birthdate, address } = decodedToken;
+        const { email, name, birthdate, address } = decodedToken;
 
         if (email) setUserEmail(email);
         if (name) setUserName(name);
-        if (id) setUserId(id);
         if (birthdate) setUserBirthdate(birthdate);
         if (address) setUserAddress(address);
     };
@@ -83,9 +81,9 @@ function MyAccount() {
                 <Col sm={4} xs={12}>
                     <Card>
                         <Card.Body>
-                            <Card.Title className='mb-3'>Information</Card.Title>
-                            <Card.Text style={{ fontSize: '14px' }}>
-                                <p style={{ margin: 3 }}><strong>ID: </strong>{userId}</p>
+                            <Card.Title className='mb-3' style={{marginBottom: '100px'}}>Information</Card.Title>
+                            <Card.Text style={{ fontSize: '14px'}}>
+                                {/* <p style={{ margin: 3 }}><strong>ID: </strong>{userId}</p> */}
                                 <p style={{ margin: 3 }}><strong>Name: </strong>{userName}</p>
                                 <p style={{ margin: 3 }}><strong>Email: </strong>{userEmail}</p>
                                 <p style={{ margin: 3 }}><strong>Birthdate: </strong>{userBirthdate}</p>

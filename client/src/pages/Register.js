@@ -43,7 +43,7 @@ const Register = () => {
         </Container>
       </Navbar>
 
-      <Container className="d-flex align-items-center justify-content-center mt-2">
+      <Container className="d-flex align-items-center justify-content-center" style={{ marginTop: '80px'}}>
         <Card style={{ width: '400px', height: '570px' }}>
           <Card.Body>
             <h2 className="text-center">Customer Sign up</h2>

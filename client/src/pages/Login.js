@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { Container, Card, Navbar, Alert } from 'react-bootstrap';
 import { LoginValidationSchema } from '../validation/LoginRegistration';
+import '../app.css'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const Login = () => {
         </Container>
       </Navbar>
 
-      <Container className="d-flex align-items-center justify-content-center mt-5">
+      <Container className="d-flex align-items-center justify-content-center background-container fluid" style={{marginTop: '150px'}}>
         <Card style={{ width: '400px' }}>
           <Card.Body>
             <h2 className="text-center">Customer Login</h2>
