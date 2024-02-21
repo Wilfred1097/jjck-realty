@@ -37,7 +37,7 @@ const db = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'jjck',
+  database: 'b4svrhz1pxumygusk30q',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -272,7 +272,7 @@ app.post('/tour-request', async (req, res) => {
       const { name } = req.body;
 
       // Construct the query with a WHERE clause to filter by name
-      const getAllLotsQuery = `SELECT * FROM tour_request_view WHERE user_name = ?`;
+      const getAllLotsQuery = `SELECT * FROM tour_request_view WHERE complete_name = ?`;
       const [lotsResults] = await db.query(getAllLotsQuery, [name]);
 
       if (lotsResults.length === 0) {

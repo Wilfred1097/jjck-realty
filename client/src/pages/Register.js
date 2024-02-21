@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { Container, Card, Navbar, Form as BootstrapForm, Button } from 'react-bootstrap';
+import { Container, Card, Navbar, Form as BootstrapForm, Button, Alert } from 'react-bootstrap';
 import { RegistrationValidationSchema } from '../validation/LoginRegistration'
 
 const Register = () => {
   const navigate = useNavigate();
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleRegister = async (values) => {
     try {
       const response = await axios.post('http://localhost:3001/register', values, { withCredentials: true });
 
       if (response.status === 200 && response.data.status === 'Success') {
-        navigate('/login');
+        setShowAlert(true);
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
       } else if (response && response.data && response.data.status === 'Email already exists') {
         alert(response.data.status);
       } else {
@@ -150,6 +154,12 @@ const Register = () => {
                 Login here.
               </a>
             </p>
+
+            {showAlert && (
+              <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+                Registration successful! Redirecting to login page...
+              </Alert>
+            )}
           </Card.Body>
         </Card>
       </Container>

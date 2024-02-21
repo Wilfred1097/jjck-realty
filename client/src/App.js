@@ -143,7 +143,6 @@ function App() {
             title="Map"
             allowFullScreen
           />
-
         </div>
         <div className="position-relative mx-2 my-0 m-md-5">
           <Container>
